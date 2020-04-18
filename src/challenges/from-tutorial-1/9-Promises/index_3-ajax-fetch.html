@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Asynchronous JavaScript</title>
+</head>
+<body>
+    <h1>Asynchronous JavaScript</h1>
+    <script>
+        // Sample API provided by:
+        //      https://www.metaweather.com/api/
+        // CORS workaround provided by:
+        //      https://cors-anywhere.herokuapp.com/
+
+        const corsUrl = "https://cors-anywhere.herokuapp.com";
+        const targetUrl = "https://www.metaweather.com/api/location/2487956";
+        const url = `${corsUrl}/${targetUrl}`;
+
+        // Style 1: Chaining Promises with `then`
+        fetch(url)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.info("Style 1: Chaining the Promises with `then`");
+                console.dir(data);
+            })
+            .catch((err) => {
+                console.err(res);
+            });
+
+        // Style 2: Using await/async
+        async function getWeather() {
+            const res = await fetch(url);
+            const data = await res.json();
+
+            return data;
+        }
+        getWeather()
+            .then((data) => {
+                console.info("Style 2: Using await/async");
+                console.dir(data);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    </script>
+</body>
+</html>

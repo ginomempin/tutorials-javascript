@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Asynchronous JavaScript</title>
+</head>
+<body>
+    <h1>Asynchronous JavaScript</h1>
+    <script>
+        const getIDs = () => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const IDs = [1215, 285, 494, 1566];
+                    resolve(IDs);
+                }, 2000);
+            });
+        };
+        const getRecipe = (ID) => {
+            return new Promise((resolve, reject) => {
+                setTimeout((id) => {
+                    const recipe = { id: id, title: "lemon scampi" };
+                    resolve(recipe);
+                }, 2000, ID);
+            });
+        };
+        const getIngredients = (recipe) => {
+            return new Promise((resolve, reject) => {
+                setTimeout((r) => {
+                    const ingredients = [
+                        r.title,
+                        ["pasta", "shrimp", "lemon", "tomatoes"]
+                    ];
+                    resolve(ingredients);
+                }, 2000, recipe);
+            });
+        };
+
+        getIDs()
+            .then((IDs) => {
+                console.log(`Got the IDs: ${IDs}`);
+                return getRecipe(IDs[1]);
+            })
+            .then((recipe) => {
+                console.log(`Got the recipe: ${JSON.stringify(recipe)}`);
+                return getIngredients(recipe);
+            })
+            .then((ingredients) => {
+                console.log(`Got the ingredients: ${JSON.stringify(ingredients)}`);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    </script>
+</body>
+</html>

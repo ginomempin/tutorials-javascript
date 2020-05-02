@@ -1,3 +1,12 @@
-# Development Environment
-.vscode
+# Env Files
 .DS_Store
+
+# IDE
+.vscode
+
+# Common
+node_modules
+
+# App-Specific
+**/*Forkify/dist/js
+**/*Forkify/dist/index.html
